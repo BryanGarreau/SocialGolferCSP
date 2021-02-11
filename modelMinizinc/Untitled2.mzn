@@ -22,7 +22,6 @@ constraint lex_lesseq( array1d(ladder) , [ ladder[i,j] | i in reverse(1..nb_sema
 
 constraint forall(i in 1..nb_semaine)( lex_lesseq( [ ladder[i,j] | j in 1..nb_groupe ] , [ ladder[i,j] |j in reverse( 1..nb_groupe ) ] ));
 
-
 solve satisfy;
 
-output["certes"++show(ladder)]
+output["Réponses : "++show(ladder)]
