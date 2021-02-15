@@ -6,7 +6,6 @@ int :nb_joueur=nb_groupe*nb_semaine;
 int :taille_groupe=nb_semaine;
 set of int:all_joueur = 1..nb_joueur;
 array [1..nb_semaine,1..nb_groupe] of var set of all_joueur: ladder;
-array [1..nb_semaine,1..nb_groupe,1..nb_joueur] of var all_joueur: test_h;
 
 
 constraint forall(i in 1..nb_semaine)(forall(j in 1..nb_groupe)(card(ladder[i,j])==taille_groupe ));
