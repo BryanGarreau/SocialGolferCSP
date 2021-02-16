@@ -10,23 +10,24 @@
 using namespace std;
 
 struct SuperType{
+
   friend ostream& operator<<(ostream &out,const SuperType &v) {
-    out << "SuperType";
     return out;
   }
+
 };
 
-struct IntValue : SuperType{
+struct IntValue : public SuperType{
   int _value;
   IntValue(int value):_value(value){}
 
   friend ostream& operator<<(ostream &out,const IntValue &v) {
-    out << v._value;
+    out << "Int " <<(int)v._value;
     return out;
   }
 };
 
-struct SetValue : SuperType{
+struct SetValue : public SuperType{
   set<int> _values;
   SetValue(int start, int end){
     for(int i = start; i<=end; i++){
@@ -45,7 +46,7 @@ struct SetValue : SuperType{
   }
 };
 
-struct Array1D : SuperType{
+struct Array1D : public SuperType{
   size_t _size;
   int * _values;
   // iterator iterator;
@@ -60,7 +61,7 @@ struct Array1D : SuperType{
   }
 };
 
-struct Array2D : SuperType{
+struct Array2D : public SuperType{
   size_t _size1;
   size_t _size2;
   int ** _values;
@@ -86,32 +87,32 @@ struct Array2D : SuperType{
 struct Variable{
   int _varType;
   string _varName;
-  SuperType _value;
+  SuperType *_value;
   Variable(int varType, string varName, int n, ...):_varType(varType), _varName(varName){
     vector<int> v_values;
     va_list values;
     va_start(values, n); //la liste des constantes commence apres n
-      switch (varType) {
+      switch (_varType) {
         case 1:
           for(int i=0; i<n; ++i){
-            int v = (int) va_arg(values, int );
+            int v = (int) va_arg(values, int);
             v_values.push_back(v);
           }
-          _value = IntValue(v_values[0]);
+          _value = new IntValue(v_values[0]);
           break;
         case 2:
           for(int i=0; i<n; ++i){
-            int v = (int) va_arg(values, int );
+            int v = (int) va_arg(values, int);
             v_values.push_back(v);
           }
-          _value = SetValue(v_values[0], v_values[1]);
+          _value = new SetValue(v_values[0], v_values[1]);
           break;
         case 3:
           for(int i=0; i<n; ++i){
-            int v = (int) va_arg(values, int );
+            int v = (int) va_arg(values, int);
             v_values.push_back(v);
           }
-          _value = Array2D(v_values[0], v_values[1]);
+          _value = new Array2D(v_values[0], v_values[1]);
           break;
       }
     va_end(values);
@@ -119,7 +120,26 @@ struct Variable{
 
   friend ostream& operator<<(ostream &out,const Variable &v) {
     out << v._varName << " : ";
-    out << v._value << "\n";
+    switch (v._varType) {
+      case 1:
+      {
+        auto value = static_cast<const IntValue&>(*v._value);
+        out << value << "\n";
+        break;
+      }
+      case 2:
+      {
+        auto value = static_cast<const SetValue&>(*v._value);
+        out << value << "\n";
+        break;
+      }
+      case 3:
+      {
+        auto value = static_cast<const Array2D&>(*v._value);
+        out << value << "\n";
+        break;
+      }
+    }
     return out;
   }
 };
@@ -128,11 +148,14 @@ std::vector<Variable> variables;
 
 static bool readVariable(string ligne){
   string variableType = ligne.substr(0, ligne.find(" "));
-  std::cout << variableType << '\n';
 
-  string varName = /*a lire*/"v1";
+  string varName;
+  string varValue;
   if(variableType == "var"){
-    // variables.push_back(Object(1));
+    varName = ligne.substr(ligne.find(" ")+1, ligne.find("=")-ligne.find(" ")-1);
+    varValue = ligne.substr(ligne.find("=")+1, ligne.find(";")-ligne.find("=")-1);
+    int f = stoi(varValue);
+    variables.push_back(Variable(1, varName, 1, f));
   } else if(variableType == "set"){
 
   } else if(variableType == "array"){
@@ -169,5 +192,8 @@ static bool read(string fileName)
         else readConstraint(ligne);
     }
     fichier.close();
+    for(Variable v : variables){
+      std::cout << v << '\n';
+    }
     return true;
 }
