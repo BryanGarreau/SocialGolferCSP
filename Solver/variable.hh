@@ -2,29 +2,19 @@
 #include <iostream>
 #include <string>
 #include <set>
+#include <vector>
 #include <cstdarg>
 #include <iterator>
 
+
 using namespace std;
 
-struct BaseVariable{
-  string _varName;
-  string getName(){return _varName;}
-  void setName(string name){_varName = name;}
-// virtual void print() const;
-};
-
-/*
-template<class T>
 struct SuperType{
-  T _value;
 
-  T getValue(){
-    return _value;
-  }
   friend ostream& operator<<(ostream &out,const SuperType &v) {
     return out;
   }
+
 };
 
 struct IntValue : public SuperType{
@@ -82,9 +72,9 @@ struct Array2D : public SuperType{
 
   friend ostream& operator<<(ostream &out,const Array2D &v) {
     out << "{ ";
-    for(int i=0; i<v._size1; i++){
+    for(unsigned int i=0; i<v._size1; i++){
       out << "{ ";
-      for(int j=0; j<v._size2; j++){
+      for(unsigned int j=0; j<v._size2; j++){
         out << v._values[i][j] << " ";
       }
       out << "} ";
@@ -93,35 +83,41 @@ struct Array2D : public SuperType{
     return out;
   }
 };
-*/
 
-// template<typename T>
-// void print(Variable<T> &var){
-//   std::cout << "/* message */" << '\n';
-// }
-
-template<typename T>
-struct Variable : public virtual BaseVariable{
-  T _value;
-
-  Variable(string varName, int value):_value(value){setName(varName);}
-  Variable(string varName, int** value):_value(value){setName(varName);}
-  Variable(string varName, set<int> value):_value(value){setName(varName);}
-
-  T getValue(){
-    return _value;
+struct Variable{
+  int _varType;
+  string _varName;
+  SuperType *_value;
+  Variable(int varType, string varName, int n, ...):_varType(varType), _varName(varName){
+    vector<int> v_values;
+    va_list values;
+    va_start(values, n); //la liste des constantes commence apres n
+      switch (_varType) {
+        case 1:
+          for(int i=0; i<n; ++i){
+            int v = (int) va_arg(values, int);
+            v_values.push_back(v);
+          }
+          _value = new IntValue(v_values[0]);
+          break;
+        case 2:
+          for(int i=0; i<n; ++i){
+            int v = (int) va_arg(values, int);
+            v_values.push_back(v);
+          }
+          _value = new SetValue(v_values[0], v_values[1]);
+          break;
+        case 3:
+          for(int i=0; i<n; ++i){
+            int v = (int) va_arg(values, int);
+            v_values.push_back(v);
+          }
+          _value = new Array2D(v_values[0], v_values[1]);
+          break;
+      }
+    va_end(values);
   }
 
-  /*
-  void print<int**>() override{
-    std::cout << "array" << '\n';
-  }
-  void print<set<int>>() override{
-    std::cout << "set" << '\n';
-  }
-
-  */
-/*
   friend ostream& operator<<(ostream &out,const Variable &v) {
     out << v._varName << " : ";
     switch (v._varType) {
@@ -146,6 +142,4 @@ struct Variable : public virtual BaseVariable{
     }
     return out;
   }
-
-  */
 };
