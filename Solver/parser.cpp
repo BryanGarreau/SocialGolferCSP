@@ -429,7 +429,7 @@ static bool read(string fileName)
     cout << "DEBUG " << _constraints[0]->isValid() << endl;
     cout << "DEBUG " << _constraints[1]->isValid() << endl;
     cout << "DEBUG disjonction 1 : " << _constraints[2]->isValid() << endl;
-    cout << "DEBUG disjonction 1 : " << _constraints[3]->isValid() << endl;
+/*    cout << "DEBUG disjonction 1 : " << _constraints[3]->isValid() << endl;
     cout << "DEBUG disjonction 0 : " << _constraints[4]->isValid() << endl;
     cout << "DEBUG disjonction 1 : " << _constraints[5]->isValid() << endl;
     cout << endl;
@@ -439,6 +439,6 @@ static bool read(string fileName)
     cout << "DEBUG conjonction 1 : " << _constraints[9]->isValid() << endl;
     cout << endl;
     cout << "DEBUG intersection : " << _constraints[10]->isValid() << endl;
-
+*/
     return true;
 }
