@@ -1,5 +1,5 @@
 all:
-	g++ -std=c++14 main.cpp -o parser.exe
+	g++ -std=c++17 main.cpp -o parser.exe
 
 clean:
 	rm -f *.o main
