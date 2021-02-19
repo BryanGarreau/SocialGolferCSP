@@ -186,20 +186,23 @@ static bool buildVariable(vector<string> s){
 Card* buildCard(vector<string> & s){
 
     s.erase(s.begin());//on supprime (
-
+    
     ArrayEnsemble* ens = getArray(_arraysDecision,s[0]);
 
     s.erase(s.begin());//on supprime le nom du tableau
+    s.erase(s.begin());//on supprime la première parenthèse
     //on chope les itérateurs
     Variable* it1 = getVar(_iterators, s[0]);
     s.erase(s.begin());//on supprime le premier itérateur
     Variable* it2 = getVar(_iterators, s[0]);
     s.erase(s.begin());//on supprime le deuxieme itérateur    
 
+    //ladder ( i,j )
+
     Card* tmp = new Card(new ArrayAccessor(ens,it1,it2));
 
+    s.erase(s.begin());//on supprime ) // il y en a bien deux à supprimer c'est pas une erreur
     s.erase(s.begin());//on supprime )
-
     return tmp;
 }
 
@@ -212,7 +215,7 @@ Formula* buildFormula(vector<string> & s){
         return buildCard(s);
     } else {
         //Si la variable existe déjà, on construit un Var et on la renvoie
-         
+        //cout << "Nom var : " << type << endl;
         Var* tmp = new Var(getVar(_variables,type));
         return tmp;
     }
@@ -293,6 +296,8 @@ Constraint* buildConstraint(vector<string> &  s){
 
     s.erase(s.begin());//on supprime le token du nom du type de contrainte
 
+    //cout << "Type : " << type << endl;
+
     if(type == "Forall"){
         return buildFor(s);
     } else if(type == "Equal") {
@@ -318,7 +323,7 @@ void traiterLigne(vector<string> s){
 static bool read(string fileName)
 {
 
-    cout << "Lecture du fichier... " << endl << endl << endl;
+    cout << "Lecture du fichier... " << endl << endl;
     ifstream fichier(fileName, ios::in);
     if (!fichier.good())
     {
@@ -348,7 +353,7 @@ static bool read(string fileName)
 
     cout << endl << "Liste des array de décisions : " << endl << endl;
     for(ArrayEnsemble* a : _arraysDecision){
-        cout << "\t" << a->getNom() << " " << a->getX() << " " << a->getY() << endl;
+        cout << "\t" << a->getNom() << " dimension : (" << a->getX() << "," << a->getY() << ")" << endl;
     }
 
     cout << endl << "Nb contraintes trouvé : " << _constraints.size() << endl << endl;
