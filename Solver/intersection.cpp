@@ -1,12 +1,20 @@
 #include "intersection.hh"
 
+#include <iostream>
+#include <set>
+
 int Intersection::value() const{
 
-    int n = 0;
+    std::set<int>* l = _left->value();
+    std::set<int>* r = _right->value();
 
-    for(auto i = _left->begin(); i != _left->end(); i++){
-        n += _right->count(*i);
+    int count = 0;
+
+    for(int i : *l){
+        count += r->count(i);
     }
 
-    return n;
+    //std::cout << "count de l'intersection : " << count << std::endl;
+
+    return count;
 }

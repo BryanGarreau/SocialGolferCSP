@@ -1,11 +1,5 @@
 #include "conjonction.hh"
 
 bool Conjonction::isValid() const {
-
-    for(auto i :_atoms){
-        if(not i->isValid()){
-            return false;
-        }
-    }
-    return true;
+    return _left->isValid() && _right->isValid();
 }

@@ -15,6 +15,9 @@
 #include "equal.hh"
 #include "different.hh"
 #include "var.hh"
+#include "disjonction.hh"
+#include "conjonction.hh"
+#include "intersection.hh"
 
 using namespace std;
 
@@ -183,6 +186,38 @@ static bool buildVariable(vector<string> s){
   return true;
 }
 
+Intersection* buildIntersection(vector<string> & s){
+
+    s.erase(s.begin());//on supprime (
+    
+    ArrayEnsemble* ens1 = getArray(_arraysDecision,s[0]);
+
+    s.erase(s.begin());//on supprime le nom du tableau
+    s.erase(s.begin());//on supprime la première parenthèse
+    //on chope les itérateurs
+    Variable* it11 = getVar(_iterators, s[0]);
+    s.erase(s.begin());//on supprime le premier itérateur
+    Variable* it12 = getVar(_iterators, s[0]);
+    s.erase(s.begin());//on supprime le deuxieme itérateur
+
+    s.erase(s.begin());//on supprime )
+
+    ArrayEnsemble* ens2 = getArray(_arraysDecision,s[0]);
+
+    s.erase(s.begin());//on supprime le nom du tableau
+    s.erase(s.begin());//on supprime la première parenthèse
+    //on chope les itérateurs
+    Variable* it21 = getVar(_iterators, s[0]);
+    s.erase(s.begin());//on supprime le premier itérateur
+    Variable* it22 = getVar(_iterators, s[0]);
+    s.erase(s.begin());//on supprime le deuxieme itérateur
+
+    s.erase(s.begin());//on supprime )
+    s.erase(s.begin());//on supprime )
+
+    return new Intersection(new ArrayAccessor(ens1,it11,it12), new ArrayAccessor(ens2,it21,it22));
+}
+
 Card* buildCard(vector<string> & s){
 
     s.erase(s.begin());//on supprime (
@@ -213,6 +248,8 @@ Formula* buildFormula(vector<string> & s){
 
     if(type == "Card"){
         return buildCard(s);
+    } else if (type == "Intersection"){
+        return buildIntersection(s);
     } else {
         //Si la variable existe déjà, on construit un Var et on la renvoie
         //cout << "Nom var : " << type << endl;
@@ -257,6 +294,9 @@ ForAll* buildFor(vector<string> & s){
     Constraint* c = buildConstraint(s);
     //suppression de l'itérateur.
     _iterators.pop_back();
+    
+    s.erase(s.begin());//on supprime )
+
     return new ForAll(it,ensDef,c);
 }
 
@@ -274,6 +314,8 @@ Equal* buildEqual(vector<string> & s){
 
 Different* buildDifferent(vector<string> & s){
     
+    if(s[0] == "("){s.erase(s.begin());}
+
     Formula* f1 = buildFormula(s);
     Formula* f2 = buildFormula(s);
 
@@ -282,12 +324,34 @@ Different* buildDifferent(vector<string> & s){
     return new Different(f1,f2);
 }
 
-void buildConjonction(vector<string> & s){
-    //buildConstraint(s)
+Conjonction* buildConjonction(vector<string> & s){
+
+    s.erase(s.begin());//on supprime ( 
+
+    Constraint* l = buildConstraint(s);//construit la contrainte de gauche
+
+    if(s[0] == ","){s.erase(s.begin());}
+
+    Constraint* r = buildConstraint(s);//construit la contrainte de droite
+
+    s.erase(s.begin());//on supprime )
+
+    return new Conjonction(l,r);
 }
 
-void buildDisjonction(vector<string> & s){
+Disjonction* buildDisjonction(vector<string> & s){
 
+    s.erase(s.begin());//on supprime (
+
+    Constraint* l = buildConstraint(s);//construit la contrainte de gauche
+
+    if(s[0] == ","){s.erase(s.begin());}
+
+    Constraint* r = buildConstraint(s);//construit la contrainte de droite
+
+    s.erase(s.begin());//on supprime )
+
+    return new Disjonction(l,r);
 }
 
 Constraint* buildConstraint(vector<string> &  s){
@@ -304,6 +368,10 @@ Constraint* buildConstraint(vector<string> &  s){
         return buildEqual(s);
     } else if(type == "Different") {
         return buildDifferent(s);
+    } else if(type == "Disjonction") {
+        return buildDisjonction(s);
+    } else if(type == "Conjonction") {
+        return buildConjonction(s);
     }
 
     return nullptr;
@@ -358,10 +426,19 @@ static bool read(string fileName)
 
     cout << endl << "Nb contraintes trouvé : " << _constraints.size() << endl << endl;
 
-    cout << endl << "DEBUG " << _constraints[0]->isValid() << endl;
-    cout << endl << "DEBUG " << _constraints[1]->isValid() << endl;
-
+    cout << "DEBUG " << _constraints[0]->isValid() << endl;
+    cout << "DEBUG " << _constraints[1]->isValid() << endl;
+    cout << "DEBUG disjonction 1 : " << _constraints[2]->isValid() << endl;
+    cout << "DEBUG disjonction 1 : " << _constraints[3]->isValid() << endl;
+    cout << "DEBUG disjonction 0 : " << _constraints[4]->isValid() << endl;
+    cout << "DEBUG disjonction 1 : " << _constraints[5]->isValid() << endl;
     cout << endl;
+    cout << "DEBUG conjonction 0 : " << _constraints[6]->isValid() << endl;
+    cout << "DEBUG conjonction 0 : " << _constraints[7]->isValid() << endl;
+    cout << "DEBUG conjonction 0 : " << _constraints[8]->isValid() << endl;
+    cout << "DEBUG conjonction 1 : " << _constraints[9]->isValid() << endl;
+    cout << endl;
+    cout << "DEBUG intersection : " << _constraints[10]->isValid() << endl;
 
     return true;
 }

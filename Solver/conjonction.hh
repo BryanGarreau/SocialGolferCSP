@@ -5,10 +5,11 @@
 class Conjonction : public Constraint {
 private:
 
-    std::vector<Constraint*> _atoms;
+    Constraint* _left;
+    Constraint* _right;
 
 public:
 
-    void addAtom(Constraint* a){_atoms.push_back(a);}
+    Conjonction(Constraint* left, Constraint* right):_left(left), _right(right) {}
     bool isValid() const;
 };

@@ -1,11 +1,7 @@
 #include "disjonction.hh"
 
-bool Disjonction::isValid() const {
+#include <iostream>
 
-    for(auto i :_atoms){
-        if(i->isValid()){
-            return true;
-        }
-    }
-    return false;
+bool Disjonction::isValid() const {
+    return _left->isValid() || _right->isValid();
 }
