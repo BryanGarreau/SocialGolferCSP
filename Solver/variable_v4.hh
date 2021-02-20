@@ -62,7 +62,7 @@ public:
     Variable(int i, string n, Ensemble* d):_val(i), _nom(n), _domaine(d) {}
     int getVal(){return _val;}
     void setVal(int a){_val = a;}
-    string getNom(){return _nom;}
+    string getNom() {return _nom;}
     Ensemble* getDomaine(){return _domaine;}
 
 };

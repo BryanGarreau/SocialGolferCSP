@@ -251,10 +251,16 @@ Formula* buildFormula(vector<string> & s){
     } else if (type == "Intersection"){
         return buildIntersection(s);
     } else {
-        //Si la variable existe déjà, on construit un Var et on la renvoie
-        //cout << "Nom var : " << type << endl;
-        Var* tmp = new Var(getVar(_variables,type));
-        return tmp;
+        //Si c'est un itérateurs on va le choper, sinon cela sera une variable
+        if(isIn(_iterators,type)){
+            Var* tmp = new Var(getVar(_iterators,type));
+            return tmp;
+        } else {
+            //Si la variable existe déjà, on construit un Var et on la renvoie
+            //cout << "Nom var : " << type << endl;
+            Var* tmp = new Var(getVar(_variables,type));
+            return tmp;
+        }
     }
 }
 
@@ -292,7 +298,7 @@ ForAll* buildFor(vector<string> & s){
     //on traite la contrainte d'après.
 
     Constraint* c = buildConstraint(s);
-    //suppression de l'itérateur.
+    //suppression de l'itérateur du vector.
     _iterators.pop_back();
     
     s.erase(s.begin());//on supprime )
@@ -308,6 +314,8 @@ Equal* buildEqual(vector<string> & s){
     Formula* f2 = buildFormula(s);
 
     s.erase(s.begin());//on supprime )
+
+    cout << "debug euqla construction : " << f1 << "   " << f2 << endl;
 
     return new Equal(f1,f2);
 }
@@ -426,6 +434,41 @@ static bool read(string fileName)
 
     cout << endl << "Nb contraintes trouvé : " << _constraints.size() << endl << endl;
 
+
+/*    
+    //certes[{3,4,8}, {2,6,7}, {1,5,9},
+    _arraysDecision[0]->get(0,0)->insert(3);
+    _arraysDecision[0]->get(0,0)->insert(4);
+    _arraysDecision[0]->get(0,0)->insert(8);
+    _arraysDecision[0]->get(0,1)->insert(2);
+    _arraysDecision[0]->get(0,1)->insert(6);
+    _arraysDecision[0]->get(0,1)->insert(7);
+    _arraysDecision[0]->get(0,2)->insert(1);
+    _arraysDecision[0]->get(0,2)->insert(5);
+    _arraysDecision[0]->get(0,2)->insert(9);
+
+    // {3,6,9}, {2,5,8}, {1,4,7},
+    _arraysDecision[0]->get(1,0)->insert(3);
+    _arraysDecision[0]->get(1,0)->insert(6);
+    _arraysDecision[0]->get(1,0)->insert(9);
+    _arraysDecision[0]->get(1,1)->insert(2);
+    _arraysDecision[0]->get(1,1)->insert(5);
+    _arraysDecision[0]->get(1,1)->insert(8);
+    _arraysDecision[0]->get(1,2)->insert(1);
+    _arraysDecision[0]->get(1,2)->insert(4);
+    _arraysDecision[0]->get(1,2)->insert(7);
+
+    // 7..9, 4..6, 1..3
+    _arraysDecision[0]->get(2,0)->insert(7);
+    _arraysDecision[0]->get(2,0)->insert(8);
+    _arraysDecision[0]->get(2,0)->insert(9);
+    _arraysDecision[0]->get(2,1)->insert(4);
+    _arraysDecision[0]->get(2,1)->insert(5);
+    _arraysDecision[0]->get(2,1)->insert(6);
+    _arraysDecision[0]->get(2,2)->insert(1);
+    _arraysDecision[0]->get(2,2)->insert(2);
+    _arraysDecision[0]->get(2,2)->insert(3);
+*/
     cout << "DEBUG " << _constraints[0]->isValid() << endl;
     cout << "DEBUG " << _constraints[1]->isValid() << endl;
     cout << "DEBUG disjonction 1 : " << _constraints[2]->isValid() << endl;
