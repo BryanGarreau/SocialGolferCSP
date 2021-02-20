@@ -3,6 +3,7 @@
 #include "arrayAccessor.hh"
 #include "formula.hh"
 #include <set>
+#include <iostream>
 
 class Card : public Formula {
 private:
@@ -12,6 +13,9 @@ private:
 public:
 
     Card(ArrayAccessor* a):_array(a){};
-    int value() const {return _array->size();}
+    int value() const {
+        //std::cout << "size : " << _array->size() << std::endl; 
+        return _array->size();
+    }
 
 };

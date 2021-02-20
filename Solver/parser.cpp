@@ -312,14 +312,10 @@ Equal* buildEqual(vector<string> & s){
 
     if(s[0] == "("){s.erase(s.begin());}
 
-    std::cout << "debug construction : " << s[0] << " " << s[1] << " " << s[2] << std::endl; 
-
     Formula* f1 = buildFormula(s);
     Formula* f2 = buildFormula(s);
 
     s.erase(s.begin());//on supprime )
-
-    cout << "debug euqla construction : " << f1 << "   " << f2 << endl;
 
     return new Equal(f1,f2);
 }
@@ -439,53 +435,65 @@ static bool read(string fileName)
     cout << endl << "Nb contraintes trouvé : " << _constraints.size() << endl << endl;
 
 
-/*    
+    set<int>* tmpSet = new set<int>();
+
+/*
+
+    //Test qui fonctionne
     //certes[{3,4,8}, {2,6,7}, {1,5,9},
-    _arraysDecision[0]->get(0,0)->insert(3);
-    _arraysDecision[0]->get(0,0)->insert(4);
-    _arraysDecision[0]->get(0,0)->insert(8);
-    _arraysDecision[0]->get(0,1)->insert(2);
-    _arraysDecision[0]->get(0,1)->insert(6);
-    _arraysDecision[0]->get(0,1)->insert(7);
-    _arraysDecision[0]->get(0,2)->insert(1);
-    _arraysDecision[0]->get(0,2)->insert(5);
-    _arraysDecision[0]->get(0,2)->insert(9);
+    tmpSet->insert(3);
+    tmpSet->insert(4);
+    tmpSet->insert(8);
+    _arraysDecision[0]->setValue(0,0,tmpSet);
+    tmpSet = new set<int>();
+    tmpSet->insert(2);
+    tmpSet->insert(6);
+    tmpSet->insert(7);
+    _arraysDecision[0]->setValue(0,1,tmpSet);
+    tmpSet = new set<int>();
+    tmpSet->insert(1);
+    tmpSet->insert(5);
+    tmpSet->insert(9);
+    _arraysDecision[0]->setValue(0,2,tmpSet);
 
     // {3,6,9}, {2,5,8}, {1,4,7},
-    _arraysDecision[0]->get(1,0)->insert(3);
-    _arraysDecision[0]->get(1,0)->insert(6);
-    _arraysDecision[0]->get(1,0)->insert(9);
-    _arraysDecision[0]->get(1,1)->insert(2);
-    _arraysDecision[0]->get(1,1)->insert(5);
-    _arraysDecision[0]->get(1,1)->insert(8);
-    _arraysDecision[0]->get(1,2)->insert(1);
-    _arraysDecision[0]->get(1,2)->insert(4);
-    _arraysDecision[0]->get(1,2)->insert(7);
+    tmpSet = new set<int>();
+    tmpSet->insert(3);
+    tmpSet->insert(6);
+    tmpSet->insert(9);
+    _arraysDecision[0]->setValue(1,0,tmpSet);
+    tmpSet = new set<int>();
+    tmpSet->insert(2);
+    tmpSet->insert(5);
+    tmpSet->insert(8);
+    _arraysDecision[0]->setValue(1,1,tmpSet);
+    tmpSet = new set<int>();
+    tmpSet->insert(1);
+    tmpSet->insert(4);
+    tmpSet->insert(7);
+    _arraysDecision[0]->setValue(1,2,tmpSet);
 
     // 7..9, 4..6, 1..3
-    _arraysDecision[0]->get(2,0)->insert(7);
-    _arraysDecision[0]->get(2,0)->insert(8);
-    _arraysDecision[0]->get(2,0)->insert(9);
-    _arraysDecision[0]->get(2,1)->insert(4);
-    _arraysDecision[0]->get(2,1)->insert(5);
-    _arraysDecision[0]->get(2,1)->insert(6);
-    _arraysDecision[0]->get(2,2)->insert(1);
-    _arraysDecision[0]->get(2,2)->insert(2);
-    _arraysDecision[0]->get(2,2)->insert(3);
+    tmpSet = new set<int>();
+    tmpSet->insert(7);
+    tmpSet->insert(8);
+    tmpSet->insert(9);
+    _arraysDecision[0]->setValue(2,0,tmpSet);
+    tmpSet = new set<int>();
+    tmpSet->insert(4);
+    tmpSet->insert(5);
+    tmpSet->insert(6);
+    _arraysDecision[0]->setValue(2,1,tmpSet);
+    tmpSet = new set<int>();
+    tmpSet->insert(1);
+    tmpSet->insert(2);
+    tmpSet->insert(3);
+    _arraysDecision[0]->setValue(2,2,tmpSet);
 */
-    cout << "DEBUG " << _constraints[0]->isValid() << endl;
-    cout << "DEBUG " << _constraints[1]->isValid() << endl;
-    cout << "DEBUG disjonction 1 : " << _constraints[2]->isValid() << endl;
-/*    cout << "DEBUG disjonction 1 : " << _constraints[3]->isValid() << endl;
-    cout << "DEBUG disjonction 0 : " << _constraints[4]->isValid() << endl;
-    cout << "DEBUG disjonction 1 : " << _constraints[5]->isValid() << endl;
-    cout << endl;
-    cout << "DEBUG conjonction 0 : " << _constraints[6]->isValid() << endl;
-    cout << "DEBUG conjonction 0 : " << _constraints[7]->isValid() << endl;
-    cout << "DEBUG conjonction 0 : " << _constraints[8]->isValid() << endl;
-    cout << "DEBUG conjonction 1 : " << _constraints[9]->isValid() << endl;
-    cout << endl;
-    cout << "DEBUG intersection : " << _constraints[10]->isValid() << endl;
-*/
+
+    cout << "DEBUG Contrainte taille " << _constraints[0]->isValid() << endl;
+    cout << "DEBUG Alldiff " << _constraints[1]->isValid() << endl;
+    cout << "DEBUG Contrainte Sociable " << _constraints[2]->isValid() << endl;
+
     return true;
 }

@@ -14,8 +14,8 @@ int Intersection::value() const{
         count += r->count(i);
     }
 
-    std::cout << "Debug intersction : " << l->size() << "  " << r->size() << std::endl;
-    std::cout << "count de l'intersection : " << count << std::endl;
+    //std::cout << "Debug intersction : " << l->size() << "  " << r->size() << std::endl;
+    //std::cout << "count de l'intersection : " << count << std::endl;
 
     return count;
 }

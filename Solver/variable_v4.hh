@@ -28,6 +28,7 @@ public:
     }
 
     set<int>* get(int x, int y){return _s[x][y];}
+    void setValue(int x, int y, set<int>* s){_s[x][y] = s;}
     string getNom(){return _nom;}
     int getX(){return _x;}
     int getY(){return _y;}
