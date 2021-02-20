@@ -202,7 +202,9 @@ Intersection* buildIntersection(vector<string> & s){
 
     s.erase(s.begin());//on supprime )
 
+    cout << "Array name : " << s[0] << endl;
     ArrayEnsemble* ens2 = getArray(_arraysDecision,s[0]);
+    
 
     s.erase(s.begin());//on supprime le nom du tableau
     s.erase(s.begin());//on supprime la première parenthèse
@@ -309,6 +311,8 @@ ForAll* buildFor(vector<string> & s){
 Equal* buildEqual(vector<string> & s){
 
     if(s[0] == "("){s.erase(s.begin());}
+
+    std::cout << "debug construction : " << s[0] << " " << s[1] << " " << s[2] << std::endl; 
 
     Formula* f1 = buildFormula(s);
     Formula* f2 = buildFormula(s);
