@@ -12,4 +12,8 @@ public:
 
     Conjonction(Constraint* left, Constraint* right):_left(left), _right(right) {}
     bool isValid() const;
+    ~Conjonction(){
+        delete _left;
+        delete _right;
+    }
 };

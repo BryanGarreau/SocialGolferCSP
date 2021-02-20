@@ -17,4 +17,9 @@ public:
     ForAll(Variable* i, Ensemble* s, Constraint* c): _iterator(i), _s(s), _c(c) {}
 
     bool isValid() const;
+    ~ForAll(){
+        delete _iterator;
+        delete _s;
+        delete _c;
+    }
 };

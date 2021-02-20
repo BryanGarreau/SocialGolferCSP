@@ -13,5 +13,9 @@ public:
 
     Different(Formula* l, Formula* r): _right(r), _left(l) {}
     bool isValid() const;
+    ~Different(){
+        delete _right;
+        delete _left;
+    }
 
 };

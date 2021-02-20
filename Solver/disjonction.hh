@@ -12,4 +12,8 @@ public:
 
     Disjonction(Constraint* left, Constraint* right):_left(left), _right(right) {}
     bool isValid() const;
+    ~Disjonction(){
+        delete _left;
+        delete _right;
+    }
 };

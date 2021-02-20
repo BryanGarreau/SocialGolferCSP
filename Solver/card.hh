@@ -17,5 +17,7 @@ public:
         //std::cout << "size : " << _array->size() << std::endl; 
         return _array->size();
     }
-
+    ~Card(){
+        delete _array;
+    }
 };

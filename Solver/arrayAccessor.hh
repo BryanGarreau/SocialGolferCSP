@@ -20,4 +20,10 @@ public:
     set<int>* value() const;
     int size() const;
 
+    ~ArrayAccessor() {
+        delete _array;
+        delete _itX;
+        delete _itY;
+    }
+
 };

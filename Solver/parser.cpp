@@ -9,7 +9,6 @@
 #include "calculatrice.cpp"
 #include "variable_v4.hh"
 
-#include "constraint.hh"
 #include "forAll.hh"
 #include "card.hh"
 #include "equal.hh"
@@ -434,11 +433,8 @@ static bool read(string fileName)
 
     cout << endl << "Nb contraintes trouvé : " << _constraints.size() << endl << endl;
 
-
-    set<int>* tmpSet = new set<int>();
-
 /*
-
+    set<int>* tmpSet = new set<int>();
     //Test qui fonctionne
     //certes[{3,4,8}, {2,6,7}, {1,5,9},
     tmpSet->insert(3);

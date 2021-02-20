@@ -14,5 +14,6 @@ public:
     
     std::set<int>::iterator upperBound(){return _set.upperBound();}
     std::set<int>::iterator lowerBound(){return _set.lowerBound();}
-    
+    ~Ensemble(){}
+
 };

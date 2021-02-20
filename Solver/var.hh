@@ -19,4 +19,7 @@ public:
         return _val->getVal();
     }
     std::string getName() {return _val->getNom();}
+    ~Var(){
+        delete _val;
+    }
 };

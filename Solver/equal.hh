@@ -18,4 +18,9 @@ public:
     void setRight(Formula* r){_right = r;}
     bool isValid() const;
 
+    ~Equal(){
+        delete _left;
+        delete _right;
+    }
+
 };

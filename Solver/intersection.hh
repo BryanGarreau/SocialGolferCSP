@@ -14,5 +14,8 @@ public:
 
     Intersection(ArrayAccessor* l, ArrayAccessor* r): _left(l), _right(r) {}
     int value() const;
-
+    ~Intersection(){
+        delete _left;
+        delete _right;
+    }
 };
