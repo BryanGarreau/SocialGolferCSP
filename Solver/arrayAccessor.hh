@@ -17,7 +17,7 @@ public:
     //ArrayAccessor(){}
     ArrayAccessor(ArrayEnsemble* arr, Variable* itx, Variable* ity):_array(arr), _itX(itx), _itY(ity) {}
     //int value() const {return 0;}
-    set<int>* value() const;
+    Ensemble* value() const;
     int size() const;
 
     ~ArrayAccessor() {

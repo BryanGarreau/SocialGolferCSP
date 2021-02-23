@@ -20,6 +20,7 @@ public:
 
     set<int>* get(){return _s;}
     string getNom(){return _nom;}
+    unsigned int size(){return _s->size();} 
     void setValue(set<int>* s) {_s = s;}
     bool isEmpty(){return _s->empty();}
 };
@@ -44,7 +45,7 @@ public:
         }
     }
 
-    set<int>* get(int x, int y){return _s[x][y]->get();}
+    Ensemble* get(int x, int y){return _s[x][y];}
     void setValue(int x, int y, set<int>* s){_s[x][y]->setValue(s);}
     string getNom(){return _nom;}
     int getX(){return _x;}

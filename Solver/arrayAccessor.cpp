@@ -1,7 +1,7 @@
 #include "arrayAccessor.hh"
 #include <iostream>
 
-set<int>* ArrayAccessor::value() const {
+Ensemble* ArrayAccessor::value() const {
     //std::cout << "Accessor : on essaye d'accéder  à : " << _itX->getVal()-1 << " " << _itY->getVal()-1 << std::endl;
     return _array->get(_itX->getVal()-1,_itY->getVal()-1);    
 }

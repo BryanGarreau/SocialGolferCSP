@@ -5,8 +5,8 @@
 
 int Intersection::value() const{
 
-    std::set<int>* l = _left->value();
-    std::set<int>* r = _right->value();
+    std::set<int>* l = _left->value()->get();
+    std::set<int>* r = _right->value()->get();
 
     int count = 0;
 
