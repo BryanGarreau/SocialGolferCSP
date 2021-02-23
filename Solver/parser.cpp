@@ -28,12 +28,11 @@ vector<Variable*> _variablesDecision;
 vector<Ensemble*> _ensemblesDecision;
 vector<ArrayEnsemble*> _arraysDecision;
 
+vector<Variable*> _iterators;
+
 vector<Constraint*> _constraints;
 
 Constraint* buildConstraint(vector<string> & s);
-
-
-vector<Variable*> _iterators;
 
 
 Variable* getVar(vector<Variable*> variables, string varName){
