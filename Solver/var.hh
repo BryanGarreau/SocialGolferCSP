@@ -18,6 +18,7 @@ public:
         //std::cout << " debug var : " << _val << std::endl;
         return _val->getVal();
     }
+    int filtre(Formula* e){return 0;}
     std::string getName() {return _val->getNom();}
     ~Var(){
         delete _val;

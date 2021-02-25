@@ -1,4 +1,4 @@
-#pragma once
+#include "calculatrice.hh"
 #include <iostream>
 
 using namespace std;

@@ -1,4 +1,4 @@
-#pragma once
+/*#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,10 +16,10 @@
 #include "var.hh"
 #include "disjonction.hh"
 #include "conjonction.hh"
-#include "intersection.hh"
+#include "intersection.hh"*/
 
-using namespace std;
-
+//using namespace std;
+#include "parser.hh"
 vector<Variable*> _variables;
 vector<Ensemble*> _ensembles;
 vector<ArrayEnsemble*> _arrays;
@@ -394,7 +394,7 @@ void traiterLigne(vector<string> s){
 
 }
 
-static bool read(string fileName)
+ bool read(string fileName)
 {
 
     cout << "Lecture du fichier... " << endl << endl;

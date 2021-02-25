@@ -1,10 +1,12 @@
+#pragma once
 #include <iostream>
 #include <string>
 #include <vector>
 #include <set>
-#include "parser.cpp"
+#include "parser.hh"
 
-#include "variable_v4.hh"
+//#include "variable_v4.hh"
+#include "solveur.hh"
 /*#include "forAll.hh"
 #include "equal.hh"
 #include "var.hh"
@@ -13,7 +15,7 @@
 */
 using namespace std;
 
-//extern vector<Variable> variables;
+
 
 int main(int argc, char **argv)
 {
@@ -31,6 +33,12 @@ int main(int argc, char **argv)
 
 	if(read(fileName))
         std::cout << "Lecture bonne" << endl;
+
+    //std::cout<<"FFFFF"<<_arraysDecision.at(0)->get(0,0)<<std::endl;
+    std::vector<ArrayEnsemble*> t = _arraysDecision;
+    //std::cout<<"FFFFF"<<t.at(0)->get(0,0)<<std::endl;
+    Solveur solveur(t,_constraints);
+    solveur.lauch();
 
 /*
     Teste des constraints et de la modélisation de celles ci.

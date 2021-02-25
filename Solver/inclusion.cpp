@@ -1,9 +1,9 @@
-#include "intersection.hh"
+#include "inclusion.hh"
 
 #include <iostream>
 #include <set>
 
-int Intersection::value() const{
+int Inclusion::value() const{
 
     std::set<int>* l = &_left->value()->get_lower_bound();
     std::set<int>* r = &_right->value()->get_lower_bound();

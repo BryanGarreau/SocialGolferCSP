@@ -4,11 +4,12 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include "ensemble.hh"
 
 using namespace std;
 
 //Classe qui va servir à englober les set.
-class Ensemble{
+/*class Ensemble{
 private:
 
     set<int>* _s;
@@ -23,7 +24,7 @@ public:
     unsigned int size(){return _s->size();} 
     void setValue(set<int>* s) {_s = s;}
     bool isEmpty(){return _s->empty();}
-};
+};*/
 
 class ArrayEnsemble{
 private:
@@ -50,6 +51,9 @@ public:
     string getNom(){return _nom;}
     int getX(){return _x;}
     int getY(){return _y;}
+
+    unsigned int sizeX(){return _s.size();}
+    unsigned int sizeY(){return _s[0].size();}
 };
 
 

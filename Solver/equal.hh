@@ -17,6 +17,8 @@ public:
     void setLeft(Formula* l){_left = l;}
     void setRight(Formula* r){_right = r;}
     bool isValid() const;
+    int filtre();
+    int filtre(int j){return 0;}
 
     ~Equal(){
         delete _left;
