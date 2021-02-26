@@ -48,18 +48,18 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/etudiant/ProjetEnsembleContaintre/version/SocialGolferCSP/Solver
+CMAKE_SOURCE_DIR = /home/etudiant/socialGolfer/SocialGolferCSP/Solver
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/etudiant/ProjetEnsembleContaintre/version/SocialGolferCSP/Solver
+CMAKE_BINARY_DIR = /home/etudiant/socialGolfer/SocialGolferCSP/Solver
 
 #=============================================================================
 # Targets provided globally by CMake.
 
 # Special rule for the target edit_cache
 edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/ProjetEnsembleContaintre/version/SocialGolferCSP/Solver/CMakeFiles /home/etudiant/ProjetEnsembleContaintre/version/SocialGolferCSP/Solver/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/socialGolfer/SocialGolferCSP/Solver/CMakeFiles /home/etudiant/socialGolfer/SocialGolferCSP/Solver/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/ProjetEnsembleContaintre/version/SocialGolferCSP/Solver/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/etudiant/socialGolfer/SocialGolferCSP/Solver/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

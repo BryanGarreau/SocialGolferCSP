@@ -1,0 +1,3 @@
+/home/etudiant/socialGolfer/SocialGolferCSP/Solver/CMakeFiles/edit_cache.dir
+/home/etudiant/socialGolfer/SocialGolferCSP/Solver/CMakeFiles/csp_solveur.dir
+/home/etudiant/socialGolfer/SocialGolferCSP/Solver/CMakeFiles/rebuild_cache.dir
